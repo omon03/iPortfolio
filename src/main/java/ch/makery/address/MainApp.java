@@ -29,13 +29,13 @@ public class MainApp extends Application {
         this.primaryStage.setHeight(400);
         this.primaryStage.setMinWidth(600);
         this.primaryStage.setMinHeight(400);
-//        TODO починить иконку
-//        InputStream iconStream = this.getClass().getResourceAsStream("/icon.png");
-//        Image iconImage = new Image(String.valueOf(this.getClass().getResource("/icon.png")));
-//        this.primaryStage.getIcons().add(iconImage);
+        InputStream iconStream =
+                getClass().getResourceAsStream("/images/icon.png");
+        Image image = new Image(iconStream);
+        primaryStage.getIcons().add(image);
 
         initRootLayout();
-        showPortfolioOverview();
+//        showPortfolioOverview();
     }
 
     /**
@@ -52,10 +52,10 @@ public class MainApp extends Application {
         AnchorPane.setTopAnchor(rootMenu, 0.0);
         AnchorPane.setLeftAnchor(rootMenu, 0.0);
         AnchorPane.setRightAnchor(rootMenu, 0.0);
-        rootLayout.minHeight(400);
-        rootLayout.minWidth(600);
-        rootLayout.prefHeight(400);
-        rootLayout.prefWidth(600);
+//        rootLayout.minHeight(400);
+//        rootLayout.minWidth(600);
+//        rootLayout.prefHeight(400);
+//        rootLayout.prefWidth(600);
         rootLayout.getChildren().add(rootMenu);
 
         // Show the scene containing the root layout.
@@ -82,8 +82,8 @@ public class MainApp extends Application {
 
         AnchorPane anchorPaneLeft = new AnchorPane();
         AnchorPane anchorPaneRight = new AnchorPane();
-
-        splitPane.getChildrenUnmodifiable().add(splitPane);
+        splitPane.getItems().addAll(anchorPaneLeft, anchorPaneRight);
+        portfolioOverview.getChildren().add(splitPane);
 
         // Set Portfolio overview into the center of root layout.
         rootLayout.setCenter(portfolioOverview);
