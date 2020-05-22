@@ -1,48 +1,51 @@
 package ch.makery.address.model;
 
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.ArrayList;
 
 public class Asset implements IAsset {
 
-    private String name;
-    private String symbol;
-    private float price;
-    private float value;
+    private StringProperty name;
+    private StringProperty symbol;
+    private FloatProperty price;
+    private FloatProperty value;
     private ArrayList<Portfolio> portfolioOwnership;  // принадлежность портфелям
 
     //  TODO добавить срок действия актива
-    public Asset(String name, String symbol, float price, float value) {
+    public Asset(StringProperty name, StringProperty symbol, FloatProperty price, FloatProperty value) {
         this.name = name;
         this.symbol = symbol;
         this.price = price;
         this.value = value;
     }
-    public Asset(String name, float price, float value) {
+    public Asset(StringProperty name, FloatProperty price, FloatProperty value) {
         this.name = name;
         this.price = price;
         this.value = value;
     }
-    public Asset(String name, float value) {
+    public Asset(StringProperty name, FloatProperty value) {
         this.name = name;
         this.value = value;
     }
-    public Asset(String name) {
+    public Asset(StringProperty name) {
         this.name = name;
     }
 
-    public String getName() {
+    public StringProperty getName() {
         return this.name;
     }
 
-    public String getSymbol() {
+    public StringProperty getSymbol() {
         return this.symbol;
     }
 
-    public float getValue() {
+    public FloatProperty getValue() {
         return this.value;
     }
 
-    public float getPrice() {
+    public FloatProperty getPrice() {
         return this.price;
     }
 
@@ -50,19 +53,19 @@ public class Asset implements IAsset {
         return this.portfolioOwnership;
     }
 
-    public void setName(String name) {
+    public void setName(StringProperty name) {
         this.name = name;
     }
 
-    public void setSymbol(String symbol) {
+    public void setSymbol(StringProperty symbol) {
         this.symbol = symbol;
     }
 
-    public void setValue(float value) {
+    public void setValue(FloatProperty value) {
         this.value = value;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(FloatProperty price) {
         this.price = price;
     }
 

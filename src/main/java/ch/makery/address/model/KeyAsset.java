@@ -1,5 +1,8 @@
 package ch.makery.address.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Singleton keyAsset
  * Опорный актив ($, рубль или пиастры)
@@ -7,15 +10,15 @@ package ch.makery.address.model;
 // TODO сделать хранение данных в базе
 public class KeyAsset implements IKeyAsset {
     private static volatile KeyAsset instance;
-    private volatile String name = "USD";
-    private volatile String symbol = "$";
+    private volatile StringProperty name;
+    private volatile StringProperty symbol;
 
-    private KeyAsset(String name, String symbol) {
+    private KeyAsset(StringProperty name, StringProperty symbol) {
         this.name = name;
         this.symbol = symbol;
     }
 
-    public static KeyAsset getInstance(String name, String shortName) {
+    public static KeyAsset getInstance(StringProperty name, StringProperty shortName) {
         KeyAsset localInstance = instance;
         if (localInstance == null) {
             synchronized (KeyAsset.class) {
@@ -28,16 +31,16 @@ public class KeyAsset implements IKeyAsset {
         return localInstance;
     }
 
-    public void setKeyAsset(String name, String symbol) {
+    public void setKeyAsset(StringProperty name, StringProperty symbol) {
         this.name = name;
         this.symbol = symbol;
     }
 
-    public String getName() {
+    public StringProperty getName() {
         return this.name;
     }
 
-    public String getSymbol() {
+    public StringProperty getSymbol() {
         return this.symbol;
     }
 }

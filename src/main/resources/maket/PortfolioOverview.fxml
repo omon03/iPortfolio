@@ -42,62 +42,62 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="asset1" text="Asset_1" GridPane.rowIndex="1">
+                        <Label fx:id="assetName1" text="Asset_1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <Label fx:id="asset2" text="Asset_2" GridPane.rowIndex="2">
+                        <Label fx:id="assetName2" text="Asset_2" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <Label fx:id="asset3" text="Asset_3" GridPane.rowIndex="3">
+                        <Label fx:id="assetName3" text="Asset_3" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <Label fx:id="asset4" text="Asset_4" GridPane.rowIndex="4">
+                        <Label fx:id="assetName4" text="Asset_4" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <Label fx:id="asset5" text="Asset_5" GridPane.rowIndex="5">
+                        <Label fx:id="assetName5" text="Asset_5" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <Label fx:id="asset6" text="Asset_6" GridPane.rowIndex="6">
+                        <Label fx:id="assetName6" text="Asset_6" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <Label fx:id="asset7" text="Asset_7" GridPane.rowIndex="7">
+                        <Label fx:id="assetName7" text="Asset_7" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <TextField fx:id="asset11" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="assetVal1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <opaqueInsets>
                               <Insets left="3.0" right="3.0" />
                            </opaqueInsets>
                            <GridPane.margin>
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="asset22" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="assetVal2" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="asset33" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="assetVal3" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="asset44" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <TextField fx:id="assetVal4" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="asset55" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <TextField fx:id="assetVal5" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="asset66" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <TextField fx:id="assetVal6" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin></TextField>
-                        <TextField fx:id="asset77" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <TextField fx:id="assetVal7" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin></TextField>
@@ -120,8 +120,11 @@
                            <GridPane.margin>
                               <Insets left="3.0" />
                            </GridPane.margin></Label>
-                        <Label text="Sell out" GridPane.columnIndex="4" />
-                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label text="Sell out" GridPane.columnIndex="4">
+                           <GridPane.margin>
+                              <Insets left="3.0" />
+                           </GridPane.margin></Label>
+                        <TextField fx:id="assetBalance1" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <opaqueInsets>
                               <Insets left="3.0" />
                            </opaqueInsets>
@@ -129,7 +132,7 @@
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <TextField fx:id="assetBalance2" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <opaqueInsets>
                               <Insets left="3.0" right="3.0" />
                            </opaqueInsets>
@@ -137,7 +140,7 @@
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="3">
+                        <TextField fx:id="assetBalance3" GridPane.columnIndex="2" GridPane.rowIndex="3">
                            <opaqueInsets>
                               <Insets left="3.0" right="3.0" />
                            </opaqueInsets>
@@ -145,7 +148,7 @@
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="4">
+                        <TextField fx:id="assetBalance4" GridPane.columnIndex="2" GridPane.rowIndex="4">
                            <opaqueInsets>
                               <Insets left="3.0" right="3.0" />
                            </opaqueInsets>
@@ -153,7 +156,7 @@
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        <TextField fx:id="assetBalance5" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <opaqueInsets>
                               <Insets left="3.0" right="3.0" />
                            </opaqueInsets>
@@ -161,7 +164,7 @@
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="6">
+                        <TextField fx:id="assetBalance6" GridPane.columnIndex="2" GridPane.rowIndex="6">
                            <opaqueInsets>
                               <Insets left="3.0" right="3.0" />
                            </opaqueInsets>
@@ -169,7 +172,7 @@
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField GridPane.columnIndex="2" GridPane.rowIndex="7">
+                        <TextField fx:id="assetBalance7" GridPane.columnIndex="2" GridPane.rowIndex="7">
                            <opaqueInsets>
                               <Insets left="3.0" right="3.0" />
                            </opaqueInsets>
@@ -177,32 +180,32 @@
                               <Insets left="3.0" right="3.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <Label fx:id="Buy1" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <Label fx:id="Buy2" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <Label fx:id="Buy3" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                        <Label fx:id="Buy4" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                        <Label fx:id="Buy5" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                        <Label fx:id="Buy6" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="6">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
@@ -212,37 +215,37 @@
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                        <Label fx:id="Sell1" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                        <Label fx:id="Sell2" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                        <Label fx:id="Sell3" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                        <Label fx:id="Sell4" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                        <Label fx:id="Sell5" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="5">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                        <Label fx:id="Sell6" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="6">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
                         </Label>
-                        <Label text="Label" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                        <Label fx:id="Sell7" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="7">
                            <padding>
                               <Insets left="4.0" />
                            </padding>
@@ -252,7 +255,7 @@
                   <ButtonBar layoutX="105.0" layoutY="258.0" prefHeight="40.0" prefWidth="307.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0">
                     <buttons>
                       <Button mnemonicParsing="false" onAction="#newPortfolio" text="New Portfolio" />
-                        <Button layoutX="135.0" layoutY="18.0" mnemonicParsing="false" onAction="#savePortfolio" text="Save" />
+                        <Button layoutX="135.0" layoutY="18.0" mnemonicParsing="false" onAction="#editPortfolio" text="Edit" />
                         <Button layoutX="50.0" layoutY="18.0" mnemonicParsing="false" onAction="#deletePortfolio" text="Delete" />
                     </buttons>
                   </ButtonBar>
@@ -261,4 +264,7 @@
         </items>
       </SplitPane>
    </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>

@@ -1,7 +1,9 @@
 package ch.makery.address.model;
 
+import javafx.beans.property.StringProperty;
+
 public interface IKeyAsset {
-    void setKeyAsset(String name, String symbol);
-    String getName();
-    String getSymbol();
+    void setKeyAsset(StringProperty name, StringProperty symbol);
+    StringProperty getName();
+    StringProperty getSymbol();
 }

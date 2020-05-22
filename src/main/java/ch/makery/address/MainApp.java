@@ -1,39 +1,68 @@
 package ch.makery.address;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import ch.makery.address.model.Asset;
+import ch.makery.address.model.Portfolio;
 import javafx.application.Application;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
     private AnchorPane rootLayout;
-    private ObservableList listAssets = FXCollections.observableArrayList();
+    private ObservableList<Asset> listAssets = FXCollections.observableArrayList();
+    private ObservableList<Portfolio> listPortfolios = FXCollections.observableArrayList();
 
     public MainApp() {
-        listAssets.add(new Asset("USD", "$", 1f, 190f));
-        listAssets.add(new Asset("BTC", "₿", 9506f, 0.073f));
-        listAssets.add(new Asset("ETH", "Ξ", 209.1f, 1.45f));
-        listAssets.add(new Asset("XMR", "", 64.49f, 3.47f));
-        listAssets.add(new Asset("BNB", "", 16.79f, 0.85f));
-        listAssets.add(new Asset("LTC", "Ł", 44.02f, 5.9f));
+        // В качестве образца добавляем некоторые данные
+        listAssets.add(new Asset(new SimpleStringProperty("USD"),
+                new SimpleStringProperty("$"),
+                new SimpleFloatProperty(1f),
+                new SimpleFloatProperty(190f)));
+        listAssets.add(new Asset(new SimpleStringProperty("BTC"),
+                new SimpleStringProperty("₿"),
+                new SimpleFloatProperty(9506f),
+                new SimpleFloatProperty(0.073f)));
+        listAssets.add(new Asset(new SimpleStringProperty("ETH"),
+                new SimpleStringProperty("Ξ"),
+                new SimpleFloatProperty(209.1f),
+                new SimpleFloatProperty(1.45f)));
+        listAssets.add(new Asset(new SimpleStringProperty("XMR"),
+                new SimpleStringProperty(""),
+                new SimpleFloatProperty(64.49f),
+                new SimpleFloatProperty(3.47f)));
+        listAssets.add(new Asset(new SimpleStringProperty("BNB"),
+                new SimpleStringProperty(""),
+                new SimpleFloatProperty(16.79f),
+                new SimpleFloatProperty(0.85f)));
+        listAssets.add(new Asset(new SimpleStringProperty("LTC"),
+                new SimpleStringProperty("Ł"),
+                new SimpleFloatProperty(44.02f),
+                new SimpleFloatProperty(5.9f)));
+        listPortfolios.add(new Portfolio(new SimpleStringProperty("crypto"),
+                new SimpleStringProperty("USD"),
+                new SimpleStringProperty("$")));
+        listPortfolios.get(0).addAssets(listAssets);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("iPortfolio application");
+        this.primaryStage.setMinHeight(340);
+        this.primaryStage.setMinWidth(616);
+        this.primaryStage.setMaxHeight(340);
+        this.primaryStage.setMaxWidth(616);
 
         InputStream iconStream = getClass().getResourceAsStream("/images/icon.png");
         Image image = new Image(iconStream);
@@ -74,130 +103,21 @@ public class MainApp extends Application {
 
             // Помещаем сведения о портфелях в центр корневого макета.
             rootLayout.getChildren().add(personOverview);
+            rootLayout.setCenterShape(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-//    public void showBaseWindow() {
-//        try {
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(MainApp.class.getResource("/maket/AssetsWindow.fxml"));
-//            rootLayout = loader.load();
-//            Scene scene = new Scene(rootLayout);
-//            primaryStage.setScene(scene);
-//            InputStream iconStream = getClass().getResourceAsStream("/images/icon.png");
-//            Image image = new Image(iconStream);
-//            primaryStage.getIcons().add(image);
-//            BaseController controller = loader.getController();
-//            controller.setMainApp(this);
-//            primaryStage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void showCreateWindow(Dog dog) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(MainApp.class.getResource("/maket/new.fxml"));
-//            AnchorPane page = loader.load();
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Wow Wow Wow");
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.initOwner(primaryStage);
-//            dialogStage.setScene(new Scene(page));
-//            CreateController controller = loader.getController();
-//            controller.setDialogStage(dialogStage);
-//            controller.setDog(dog);
-//            dialogStage.showAndWait();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//}
-
-//    @Override
-//    public void start(Stage primaryStage) {
-//        this.primaryStage = primaryStage;
-//        this.primaryStage.setTitle("iPortfolio");
-//        this.primaryStage.setWidth(600);
-//        this.primaryStage.setHeight(400);
-//        this.primaryStage.setMinWidth(600);
-//        this.primaryStage.setMinHeight(400);
-//
-//        InputStream iconStream = getClass().getResourceAsStream("/images/icon.png");
-//        Image image = new Image(iconStream);
-//        primaryStage.getIcons().add(image);
-//
-//        initRootLayout();
-////        showPortfolioOverview();
-//    }
-//
-//    /**
-//     * Initializes the root layout.
-//     */
-//    public void initRootLayout() {
-//        MenuBar rootMenu = new MenuBar();
-//        Menu menuFile = new Menu("File");
-//        Menu menuEdit = new Menu("Edit");
-//        Menu menuView = new Menu("View");
-//        rootMenu.getMenus().addAll(menuFile, menuEdit, menuView);
-//
-//        AnchorPane rootLayout = new AnchorPane();
-//        AnchorPane.setTopAnchor(rootMenu, 0.0);
-//        AnchorPane.setLeftAnchor(rootMenu, 0.0);
-//        AnchorPane.setRightAnchor(rootMenu, 0.0);
-////        rootLayout.minHeight(400);
-////        rootLayout.minWidth(600);
-////        rootLayout.prefHeight(400);
-////        rootLayout.prefWidth(600);
-//        rootLayout.getChildren().add(rootMenu);
-//
-//        // Show the scene containing the root layout.
-//        Scene scene = new Scene(rootLayout);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//    }
-//
-//    /**
-//     * Shows the person overview inside the root layout.
-//     */
-//    public void showPortfolioOverview() {
-//        // Portfolio overview.
-////            FXMLLoader loader = new FXMLLoader();
-////            loader.setLocation(MainApp.class.getResource("view/PortfolioOverview.fxml"));
-////            AnchorPane portfolioOverview = (AnchorPane) loader.load();
-//        AnchorPane portfolioOverview = new AnchorPane();
-//
-//        SplitPane splitPane = new SplitPane();
-//        AnchorPane.setTopAnchor(splitPane, 0.0);
-//        AnchorPane.setLeftAnchor(splitPane, 0.0);
-//        AnchorPane.setRightAnchor(splitPane, 0.0);
-//        AnchorPane.setBottomAnchor(splitPane, 0.0);
-//
-//        AnchorPane anchorPaneLeft = new AnchorPane();
-//        AnchorPane anchorPaneRight = new AnchorPane();
-//        splitPane.getItems().addAll(anchorPaneLeft, anchorPaneRight);
-//        portfolioOverview.getChildren().add(splitPane);
-//
-//        // Set Portfolio overview into the center of root layout.
-//        rootLayout.getChildren().add(portfolioOverview);
-//    }
-//
-//    /**
-//     * Returns the main stage.
-//     * @return: primaryStage
-//     */
-//    public Stage getPrimaryStage() {
-//        return primaryStage;
-//    }
+    /**
+     * Возвращает главную сцену.
+     * @return: primaryStage
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
-
-//    public ObservableList getListDog() {
-//        return listDog;
-//    }
 }

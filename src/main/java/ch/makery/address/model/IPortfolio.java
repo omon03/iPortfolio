@@ -1,15 +1,20 @@
 package ch.makery.address.model;
 
-import java.util.ArrayList;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 public interface IPortfolio {
-    void addAsset(String name);
-    void dellAsset(String name);
-    void setName(String name);
-    void setNameAsset(int countAsset, String newName);
-    void setValueAsset(int countAsset, float value);
-    void setPriceAsset(int countAsset, float price);
+    void addAsset(StringProperty name);
+    void addAsset(Asset asset);
+    void addAssets(ObservableList<Asset> listAssets);
+    void dellAsset(StringProperty name);
+    void setName(StringProperty name);
+    void setNameAsset(int countAsset, StringProperty newName);
+    void setValueAsset(int countAsset, FloatProperty value);
+    void setPriceAsset(int countAsset, FloatProperty price);
     Asset getAsset(int countAsset);
-    Asset getAsset(String name);
-    ArrayList<Asset> getAssets();
+    Asset getAsset(StringProperty name);
+    ObservableList<Asset> getAssets();
+    StringProperty getName();
 }
