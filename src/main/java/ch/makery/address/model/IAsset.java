@@ -1,7 +1,6 @@
 package ch.makery.address.model;
 
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;

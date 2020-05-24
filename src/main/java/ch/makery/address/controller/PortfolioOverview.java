@@ -359,6 +359,9 @@ public class PortfolioOverview {
         }
     }
 
+    /**
+     * Обработчик кнопки "New Portfolio"
+     */
     @FXML
     private void newPortfolio() {
         Portfolio portfolio = new Portfolio();
@@ -370,14 +373,20 @@ public class PortfolioOverview {
     @FXML
     private void editPortfolio() {
         int selectedIndex = potrfolios.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0)
-            selectedIndex = 0;
-//            potrfolios.getItems().set(selectedIndex, new Portfolio(
-//                    name.getText(),
-//                    breed.getText(),
-//                    Integer.valueOf(age.getText()),
-//                    city.getText(),
-//                    Integer.valueOf(levelOfTraining.getText())));
+        if (selectedIndex >= 0) {
+            Portfolio portfolio = mainApp.getPortfoliosList().get(selectedIndex);
+            portfolio.setNameAsset();
+
+//            potrfolios.getItems().set(selectedIndex,
+//                                      new Portfolio(
+//                                          name.getText(),
+//                                          breed.getText(),
+//                                          Integer.valueOf(age.getText()),
+//                                          city.getText(),
+//                                          Integer.valueOf(levelOfTraining.getText())
+//                                          )
+//                                      );
+        }
         else {
             // Ничего не выбрано.
             Alert alert = new Alert(Alert.AlertType.WARNING);
