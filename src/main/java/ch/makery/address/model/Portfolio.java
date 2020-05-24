@@ -68,7 +68,7 @@ public class Portfolio implements IPortfolio {
         try {
             proportions.set(countAsset, proportion);
         } catch (IndexOutOfBoundsException e) {
-            proportions.add(countAsset, proportion);
+//            proportions.add(countAsset, proportion);
         }
     }
     @Override

@@ -219,10 +219,10 @@ public class PortfolioOverview {
      * @param portfolio - объект Portfolio
      * @return String balancing - Balancing(% ФАКТИЧЕСКИЙ) актива в портфеле. Если указанный актив = null, то пустая строка.
      * */
-    private String getAssetBalancing(Portfolio portfolio, int countAsset){
+    private String getAssetBalancing(Portfolio portfolio, FloatProperty portfolioBalance, int countAsset){
         try {
             FloatProperty assetBalance = portfolio.getAsset(countAsset).getBalance();
-            FloatProperty portfolioBalance = portfolio.getBalance();
+//            FloatProperty portfolioBalance = portfolio.getBalance();
             // цена одного процента портфеля
             float priceOnePercent = (portfolioBalance.divide(100)).floatValue();
             // процент актива в портфеле
@@ -239,11 +239,11 @@ public class PortfolioOverview {
      * @param portfolio - объект Portfolio
      * @return String deviation - Deviation(%) - отклонение актива от пропорции. Если указанный актив = null, то пустая строка.
      * */
-    private String getDeviationAsset(Portfolio portfolio, int countAsset){
+    private String getDeviationAsset(Portfolio portfolio, FloatProperty portfolioBalance, int countAsset){
         try {
             float assetProportion = portfolio.getProportion(countAsset);
             FloatProperty assetBalance = portfolio.getAsset(countAsset).getBalance();
-            FloatProperty portfolioBalance = portfolio.getBalance();
+//            FloatProperty portfolioBalance = portfolio.getBalance();
             // цена одного процента портфеля
             float priceOnePercent = (portfolioBalance.divide(100)).floatValue();
             // процент актива в портфеле
@@ -262,21 +262,22 @@ public class PortfolioOverview {
      */
     private void setBalanceBuy(Portfolio portfolio) {
         if (portfolio != null) {
-            balancing1.setText(getAssetBalancing(portfolio, 0));
-            balancing2.setText(getAssetBalancing(portfolio, 1));
-            balancing3.setText(getAssetBalancing(portfolio, 2));
-            balancing4.setText(getAssetBalancing(portfolio, 3));
-            balancing5.setText(getAssetBalancing(portfolio, 4));
-            balancing6.setText(getAssetBalancing(portfolio, 5));
-            balancing7.setText(getAssetBalancing(portfolio, 6));
+            FloatProperty portfolioBalance = portfolio.getBalance();
+            balancing1.setText(getAssetBalancing(portfolio, portfolioBalance, 0));
+            balancing2.setText(getAssetBalancing(portfolio, portfolioBalance, 1));
+            balancing3.setText(getAssetBalancing(portfolio, portfolioBalance, 2));
+            balancing4.setText(getAssetBalancing(portfolio, portfolioBalance, 3));
+            balancing5.setText(getAssetBalancing(portfolio, portfolioBalance, 4));
+            balancing6.setText(getAssetBalancing(portfolio, portfolioBalance, 5));
+            balancing7.setText(getAssetBalancing(portfolio, portfolioBalance, 6));
 
-            Buy1.setText(getDeviationAsset(portfolio, 0));
-            Buy2.setText(getDeviationAsset(portfolio, 1));
-            Buy3.setText(getDeviationAsset(portfolio, 2));
-            Buy4.setText(getDeviationAsset(portfolio, 3));
-            Buy5.setText(getDeviationAsset(portfolio, 4));
-            Buy6.setText(getDeviationAsset(portfolio, 5));
-            Buy7.setText(getDeviationAsset(portfolio, 6));
+            Buy1.setText(getDeviationAsset(portfolio, portfolioBalance, 0));
+            Buy2.setText(getDeviationAsset(portfolio, portfolioBalance, 1));
+            Buy3.setText(getDeviationAsset(portfolio, portfolioBalance, 2));
+            Buy4.setText(getDeviationAsset(portfolio, portfolioBalance, 3));
+            Buy5.setText(getDeviationAsset(portfolio, portfolioBalance, 4));
+            Buy6.setText(getDeviationAsset(portfolio, portfolioBalance, 5));
+            Buy7.setText(getDeviationAsset(portfolio, portfolioBalance, 6));
         }
         else {
             balancing1.setText("");
@@ -408,13 +409,13 @@ public class PortfolioOverview {
         try {
             if (!(assetName.getText().isEmpty()) && !(assetName.getText().equals(""))) {
                 portfolio.setNameAsset(countAsset, new SimpleStringProperty(assetName.getText()));
-//                initialize();
             }
             else {
-                portfolio.getAssets().set(countAsset, null);
+                if (portfolio.getAssets().size() <= countAsset)
+                    portfolio.getAssets().set(countAsset, null);
             }
         } catch (Exception e) {
-            portfolio.addAsset(new SimpleStringProperty(assetName.getText()));
+//            portfolio.addAsset(new SimpleStringProperty(assetName.getText()));
         }
     }
     /**
@@ -433,6 +434,8 @@ public class PortfolioOverview {
                 alertStage("Error(419)!", "No asset.",
                         "Please select a portfolio and write the correct value in the asset.");
             }
+        } catch (IndexOutOfBoundsException ignored){
+
         } catch (Exception e) {
             alertStage("Error!", "Invalid value entered.",
                     "Please select a portfolio and write the correct value in the asset.");
@@ -454,6 +457,8 @@ public class PortfolioOverview {
                 alertStage("Error!(439)", "No asset.",
                         "Please select a portfolio and write the correct value in the asset.");
             }
+        } catch (IndexOutOfBoundsException ignored){
+
         } catch (Exception e) {
             alertStage("Error!", "No asset or invalid value entered.",
                     "Please select a portfolio and write the correct value in the asset.");
@@ -475,6 +480,8 @@ public class PortfolioOverview {
                 alertStage("Error(459)!", "No asset.",
                         "Please select a portfolio and write the correct value in the asset.");
             }
+        } catch (IndexOutOfBoundsException ignored){
+
         } catch (Exception e) {
             alertStage("Error!", "No asset or invalid value entered.",
                     "Please select a portfolio and write the correct value in the asset.");
@@ -523,6 +530,9 @@ public class PortfolioOverview {
             setAssetProportion(portfolio, 6, assetBalance7);
 
             setBalanceBuy(portfolio);
+
+            // Добавление в таблицу данных из наблюдаемого списка
+            potrfolios.setItems(mainApp.getPortfoliosList());
 
             showPortfolioDetails(potrfolios.getSelectionModel().getSelectedItem());
 //            initialize();
