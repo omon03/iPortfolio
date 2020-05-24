@@ -1,5 +1,7 @@
 package ch.makery.address;
 
+import ch.makery.address.controller.NewPortfolio;
+import ch.makery.address.controller.PortfolioOverview;
 import ch.makery.address.model.Asset;
 import ch.makery.address.model.Portfolio;
 import javafx.application.Application;
@@ -11,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,6 +56,20 @@ public class MainApp extends Application {
                 new SimpleStringProperty("USD"),
                 new SimpleStringProperty("$")));
         listPortfolios.get(0).addAssets(listAssets);
+        listPortfolios.get(0).addProportion(0, new SimpleFloatProperty(10f));
+        listPortfolios.get(0).addProportion(1, new SimpleFloatProperty(50f));
+        listPortfolios.get(0).addProportion(2, new SimpleFloatProperty(30f));
+        listPortfolios.get(0).addProportion(3, new SimpleFloatProperty(2.5f));
+        listPortfolios.get(0).addProportion(4, new SimpleFloatProperty(5f));
+        listPortfolios.get(0).addProportion(5, new SimpleFloatProperty(2.5f));
+    }
+
+    /**
+     * Возвращает данные в виде наблюдаемого списка портфелей.
+     * @return: listPortfolios
+     */
+    public ObservableList<Portfolio> getPortfoliosList() {
+        return listPortfolios;
     }
 
     @Override
@@ -104,6 +121,30 @@ public class MainApp extends Application {
             // Помещаем сведения о портфелях в центр корневого макета.
             rootLayout.getChildren().add(personOverview);
             rootLayout.setCenterShape(true);
+
+            // Даём контроллеру доступ к главному приложению.
+            PortfolioOverview controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCreateWindow(Portfolio portfolio) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/maket/newName.fxml"));
+            AnchorPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("New portfolio");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.setScene(new Scene(page));
+            NewPortfolio controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPortfolio(portfolio);
+            dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

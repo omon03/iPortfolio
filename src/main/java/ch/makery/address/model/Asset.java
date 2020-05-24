@@ -1,6 +1,7 @@
 package ch.makery.address.model;
 
 import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
@@ -33,42 +34,48 @@ public class Asset implements IAsset {
         this.name = name;
     }
 
-    public StringProperty getName() {
-        return this.name;
+    @Override
+    public String getName() {
+        return this.name.getValue();
     }
-
-    public StringProperty getSymbol() {
-        return this.symbol;
+    @Override
+    public String getSymbol() {
+        return this.symbol.getValue();
     }
-
-    public FloatProperty getValue() {
-        return this.value;
+    @Override
+    public String getValue() {
+        return this.value.getValue().toString();
     }
-
+    @Override
+    public FloatProperty getBalance() {
+        FloatProperty res = new SimpleFloatProperty(price.multiply(value).floatValue());
+        return res;
+    }
+    @Override
     public FloatProperty getPrice() {
         return this.price;
     }
-
+    @Override
     public ArrayList<Portfolio> getPortfolio() {
         return this.portfolioOwnership;
     }
-
+    @Override
     public void setName(StringProperty name) {
         this.name = name;
     }
-
+    @Override
     public void setSymbol(StringProperty symbol) {
         this.symbol = symbol;
     }
-
+    @Override
     public void setValue(FloatProperty value) {
         this.value = value;
     }
-
+    @Override
     public void setPrice(FloatProperty price) {
         this.price = price;
     }
-
+    @Override
     public void addPortfolioOwnership(Portfolio portfolio) {
         this.portfolioOwnership.add(portfolio);
     }
