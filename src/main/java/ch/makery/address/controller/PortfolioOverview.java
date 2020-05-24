@@ -5,6 +5,7 @@ import ch.makery.address.model.Portfolio;
 import javafx.beans.binding.FloatBinding;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -162,7 +163,11 @@ public class PortfolioOverview {
      * @return String name - имя актива в портфеле. Если указанный актив = null, то пустая строка.
      * */
     private String getAssetName(Portfolio portfolio, int count){
-        return (portfolio.getAsset(count) != null)? portfolio.getAsset(count).getName() : "";
+        try {
+            return portfolio.getAsset(count).getName();
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     /**
@@ -172,7 +177,11 @@ public class PortfolioOverview {
      * @return String value - Value актива в портфеле. Если указанный актив = null, то пустая строка.
      * */
     private String getAssetValue(Portfolio portfolio, int count){
-        return (portfolio.getAsset(count) != null)? portfolio.getAsset(count).getValue() : "";
+        try {
+            return portfolio.getAsset(count).getValue();
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     /**
@@ -182,7 +191,11 @@ public class PortfolioOverview {
      * @return String price - Price актива в портфеле. Если указанный актив = null, то пустая строка.
      * */
     private String getAssetPrice(Portfolio portfolio, int count){
-        return (portfolio.getAsset(count) != null)? Float.toString(portfolio.getAsset(count).getPrice().getValue()) : "";
+        try {
+            return Float.toString(portfolio.getAsset(count).getPrice().getValue());
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     /**
@@ -244,6 +257,47 @@ public class PortfolioOverview {
     }
 
     /**
+     * set Balancing and Buy
+     * @param portfolio - Portfolio
+     */
+    private void setBalanceBuy(Portfolio portfolio) {
+        if (portfolio != null) {
+            balancing1.setText(getAssetBalancing(portfolio, 0));
+            balancing2.setText(getAssetBalancing(portfolio, 1));
+            balancing3.setText(getAssetBalancing(portfolio, 2));
+            balancing4.setText(getAssetBalancing(portfolio, 3));
+            balancing5.setText(getAssetBalancing(portfolio, 4));
+            balancing6.setText(getAssetBalancing(portfolio, 5));
+            balancing7.setText(getAssetBalancing(portfolio, 6));
+
+            Buy1.setText(getDeviationAsset(portfolio, 0));
+            Buy2.setText(getDeviationAsset(portfolio, 1));
+            Buy3.setText(getDeviationAsset(portfolio, 2));
+            Buy4.setText(getDeviationAsset(portfolio, 3));
+            Buy5.setText(getDeviationAsset(portfolio, 4));
+            Buy6.setText(getDeviationAsset(portfolio, 5));
+            Buy7.setText(getDeviationAsset(portfolio, 6));
+        }
+        else {
+            balancing1.setText("");
+            balancing2.setText("");
+            balancing3.setText("");
+            balancing4.setText("");
+            balancing5.setText("");
+            balancing6.setText("");
+            balancing7.setText("");
+
+            Buy1.setText("");
+            Buy2.setText("");
+            Buy3.setText("");
+            Buy4.setText("");
+            Buy5.setText("");
+            Buy6.setText("");
+            Buy7.setText("");
+        }
+    }
+
+    /**
      * Заполняет все текстовые поля, отображая подробности о портфеле.
      * Если указанный портфель = null, то все текстовые поля очищаются.
      *
@@ -283,30 +337,6 @@ public class PortfolioOverview {
             assetBalance5.setText(getAssetProportion(portfolio,4));
             assetBalance6.setText(getAssetProportion(portfolio,5));
             assetBalance7.setText(getAssetProportion(portfolio,6));
-
-            balancing1.setText(getAssetBalancing(portfolio,0));
-            balancing2.setText(getAssetBalancing(portfolio,1));
-            balancing3.setText(getAssetBalancing(portfolio,2));
-            balancing4.setText(getAssetBalancing(portfolio,3));
-            balancing5.setText(getAssetBalancing(portfolio,4));
-            balancing6.setText(getAssetBalancing(portfolio,5));
-            balancing7.setText(getAssetBalancing(portfolio,6));
-
-            Buy1.setText(getDeviationAsset(portfolio,0));
-            Buy2.setText(getDeviationAsset(portfolio,1));
-            Buy3.setText(getDeviationAsset(portfolio,2));
-            Buy4.setText(getDeviationAsset(portfolio,3));
-            Buy5.setText(getDeviationAsset(portfolio,4));
-            Buy6.setText(getDeviationAsset(portfolio,5));
-            Buy7.setText(getDeviationAsset(portfolio,6));
-
-//            lastNameLabel.setText(person.getLastName());
-//            streetLabel.setText(person.getStreet());
-//            postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
-//            cityLabel.setText(person.getCity());
-
-            // TODO: Нам нужен способ для перевода дня рождения в тип String!
-            // birthdayLabel.setText(...);
         } else {
             // Если Portfolio = null, то убираем весь текст.
             assetName1.setText("");
@@ -340,24 +370,24 @@ public class PortfolioOverview {
             assetBalance5.setText("");
             assetBalance6.setText("");
             assetBalance7.setText("");
-
-            balancing1.setText("");
-            balancing2.setText("");
-            balancing3.setText("");
-            balancing4.setText("");
-            balancing5.setText("");
-            balancing6.setText("");
-            balancing7.setText("");
-
-            Buy1.setText("");
-            Buy2.setText("");
-            Buy3.setText("");
-            Buy4.setText("");
-            Buy5.setText("");
-            Buy6.setText("");
-            Buy7.setText("");
         }
+        setBalanceBuy(portfolio);
     }
+
+
+    /**
+     * Выбрасывает окно с ошибкой.
+     */
+    private void alertStage(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.initOwner(mainApp.getPrimaryStage());
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+
+        alert.showAndWait();
+    }
+
 
     /**
      * Обработчик кнопки "New Portfolio"
@@ -370,32 +400,137 @@ public class PortfolioOverview {
             mainApp.getPortfoliosList().add(portfolio);
         }
     }
+
+    /**
+     * setAssetName
+     */
+    private void setAssetName(Portfolio portfolio, int countAsset, TextField assetName) {
+        try {
+            if (!(assetName.getText().isEmpty()) && !(assetName.getText().equals(""))) {
+                portfolio.setNameAsset(countAsset, new SimpleStringProperty(assetName.getText()));
+//                initialize();
+            }
+            else {
+                portfolio.getAssets().set(countAsset, null);
+            }
+        } catch (Exception e) {
+            portfolio.addAsset(new SimpleStringProperty(assetName.getText()));
+        }
+    }
+    /**
+     * setAssetVal
+     */
+    private void setAssetVal(Portfolio portfolio, int countAsset, TextField assetVal) {
+        try {
+            if (portfolio.getAssets().get(countAsset) != null &&
+                    !(assetVal.getText().isEmpty()) &&
+                    !(assetVal.getText().equals(""))) {
+                portfolio.setValueAsset(countAsset, new SimpleFloatProperty(Float.parseFloat(assetVal.getText())));
+            }
+            else if (portfolio.getAssets().get(countAsset) == null &&
+                    !(assetVal.getText().isEmpty()) &&
+                    !(assetVal.getText().equals(""))) {
+                alertStage("Error(419)!", "No asset.",
+                        "Please select a portfolio and write the correct value in the asset.");
+            }
+        } catch (Exception e) {
+            alertStage("Error!", "Invalid value entered.",
+                    "Please select a portfolio and write the correct value in the asset.");
+        }
+    }
+    /**
+     * setAssetPrice
+     */
+    private void setAssetPrice(Portfolio portfolio, int countAsset, TextField assetVal) {
+        try {
+            if (portfolio.getAssets().get(countAsset) != null &&
+                    !(assetVal.getText().isEmpty()) &&
+                    !(assetVal.getText().equals(""))) {
+                portfolio.setPriceAsset(countAsset, new SimpleFloatProperty(Float.parseFloat(assetVal.getText())));
+            }
+            else if (portfolio.getAssets().get(countAsset) == null &&
+                    !(assetVal.getText().isEmpty()) &&
+                    !(assetVal.getText().equals(""))) {
+                alertStage("Error!(439)", "No asset.",
+                        "Please select a portfolio and write the correct value in the asset.");
+            }
+        } catch (Exception e) {
+            alertStage("Error!", "No asset or invalid value entered.",
+                    "Please select a portfolio and write the correct value in the asset.");
+        }
+    }
+    /**
+     * setAssetProportion
+     */
+    private void setAssetProportion(Portfolio portfolio, int countAsset, TextField assetVal) {
+        try {
+            if (portfolio.getAssets().get(countAsset) != null &&
+                    !(assetVal.getText().isEmpty()) &&
+                    !(assetVal.getText().equals(""))) {
+                portfolio.setProportion(countAsset, new SimpleFloatProperty(Float.parseFloat(assetVal.getText())));
+            }
+            else if (portfolio.getAssets().get(countAsset) == null &&
+                    !(assetVal.getText().isEmpty()) &&
+                    !(assetVal.getText().equals(""))) {
+                alertStage("Error(459)!", "No asset.",
+                        "Please select a portfolio and write the correct value in the asset.");
+            }
+        } catch (Exception e) {
+            alertStage("Error!", "No asset or invalid value entered.",
+                    "Please select a portfolio and write the correct value in the asset.");
+        }
+    }
+
+    /**
+     * Обработчик кнопки "Edit"
+     */
     @FXML
     private void editPortfolio() {
         int selectedIndex = potrfolios.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             Portfolio portfolio = mainApp.getPortfoliosList().get(selectedIndex);
-//            portfolio.setNameAsset();
 
-//            potrfolios.getItems().set(selectedIndex,
-//                                      new Portfolio(
-//                                          name.getText(),
-//                                          breed.getText(),
-//                                          Integer.valueOf(age.getText()),
-//                                          city.getText(),
-//                                          Integer.valueOf(levelOfTraining.getText())
-//                                          )
-//                                      );
+            setAssetName(portfolio, 0, assetName1);
+            setAssetName(portfolio, 1, assetName2);
+            setAssetName(portfolio, 2, assetName3);
+            setAssetName(portfolio, 3, assetName4);
+            setAssetName(portfolio, 4, assetName5);
+            setAssetName(portfolio, 5, assetName6);
+            setAssetName(portfolio, 6, assetName7);
+
+            setAssetVal(portfolio, 0, assetVal1);
+            setAssetVal(portfolio, 1, assetVal2);
+            setAssetVal(portfolio, 2, assetVal3);
+            setAssetVal(portfolio, 3, assetVal4);
+            setAssetVal(portfolio, 4, assetVal5);
+            setAssetVal(portfolio, 5, assetVal6);
+            setAssetVal(portfolio, 6, assetVal7);
+
+            setAssetPrice(portfolio, 0, price1);
+            setAssetPrice(portfolio, 1, price2);
+            setAssetPrice(portfolio, 2, price3);
+            setAssetPrice(portfolio, 3, price4);
+            setAssetPrice(portfolio, 4, price5);
+            setAssetPrice(portfolio, 5, price6);
+            setAssetPrice(portfolio, 6, price7);
+
+            setAssetProportion(portfolio, 0, assetBalance1);
+            setAssetProportion(portfolio, 1, assetBalance2);
+            setAssetProportion(portfolio, 2, assetBalance3);
+            setAssetProportion(portfolio, 3, assetBalance4);
+            setAssetProportion(portfolio, 4, assetBalance5);
+            setAssetProportion(portfolio, 5, assetBalance6);
+            setAssetProportion(portfolio, 6, assetBalance7);
+
+            setBalanceBuy(portfolio);
+
+            showPortfolioDetails(potrfolios.getSelectionModel().getSelectedItem());
+//            initialize();
         }
         else {
             // Ничего не выбрано.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Portfolio Selected");
-            alert.setContentText("Please select a portfolio in the table.");
-
-            alert.showAndWait();
+            alertStage("No Selection", "No Portfolio Selected",
+                    "Please select a portfolio in the table.");
         }
     }
 
@@ -409,13 +544,8 @@ public class PortfolioOverview {
             potrfolios.getItems().remove(selectedIndex);
         else {
             // Ничего не выбрано.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Portfolio Selected");
-            alert.setContentText("Please select a portfolio in the table.");
-
-            alert.showAndWait();
+            alertStage("No Selection", "No Portfolio Selected",
+                    "Please select a portfolio in the table.");
         }
     }
 }

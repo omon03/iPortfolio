@@ -4,15 +4,16 @@ import javafx.beans.property.FloatProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public interface IPortfolio {
     void addAsset(StringProperty name);
     void addAsset(Asset asset);
     void addAssets(ObservableList<Asset> listAssets);
-    void dellAsset(StringProperty name);
+    void dellAsset(StringProperty name);  // TODO по индексу
     void setName(StringProperty name);
-    void setNameAsset(int countAsset, StringProperty newName);
+    void setNameAsset(int countAsset, StringProperty newName) throws InvocationTargetException;
     void setValueAsset(int countAsset, FloatProperty value);
     void setPriceAsset(int countAsset, FloatProperty price);
     void setProportion(int countAsset, FloatProperty proportion);
