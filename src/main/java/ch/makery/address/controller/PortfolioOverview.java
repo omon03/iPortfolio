@@ -375,7 +375,7 @@ public class PortfolioOverview {
         int selectedIndex = potrfolios.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             Portfolio portfolio = mainApp.getPortfoliosList().get(selectedIndex);
-            portfolio.setNameAsset();
+//            portfolio.setNameAsset();
 
 //            potrfolios.getItems().set(selectedIndex,
 //                                      new Portfolio(
