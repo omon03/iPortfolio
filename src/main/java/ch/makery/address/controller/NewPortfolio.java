@@ -31,7 +31,7 @@ public class NewPortfolio {
     }
 
     @FXML
-    private void cansel() {
+    private void canсel() {
         dialogStage.close();
     }
 }

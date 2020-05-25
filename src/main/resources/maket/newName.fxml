@@ -24,6 +24,6 @@
             </children>
         </GridPane>
         <Button layoutX="222.0" layoutY="149.0" mnemonicParsing="false" onAction="#ok" prefHeight="37.0" prefWidth="95.0" text="Save" />
-        <Button layoutX="325.0" layoutY="149.0" mnemonicParsing="false" onAction="#cansel" prefHeight="37.0" prefWidth="95.0" text="Cansel" />
+        <Button layoutX="325.0" layoutY="149.0" mnemonicParsing="false" onAction="#canсel" prefHeight="37.0" prefWidth="95.0" text="Canсel" />
     </children>
 </AnchorPane>
