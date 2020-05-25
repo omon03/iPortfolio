@@ -48,8 +48,11 @@ public class Asset implements IAsset {
     }
     @Override
     public FloatProperty getBalance() {
-        FloatProperty res = new SimpleFloatProperty(price.multiply(value).floatValue());
-        return res;
+        try {
+            return new SimpleFloatProperty(price.multiply(value).floatValue());
+        } catch (Exception e) {
+            return new SimpleFloatProperty(0);
+        }
     }
     @Override
     public FloatProperty getPrice() {
