@@ -207,7 +207,9 @@ public class PortfolioOverview {
     private String getAssetProportion(Portfolio portfolio, int count){
         try {
             portfolio.getAsset(count);
-            return portfolio.getProportion(count).toString();
+            if (portfolio.getProportion(count) != 0)
+                return portfolio.getProportion(count).toString();
+            return "";
         }catch (Exception e){
             return "";
         }
@@ -375,7 +377,6 @@ public class PortfolioOverview {
         setBalanceBuy(portfolio);
     }
 
-
     /**
      * Выбрасывает окно с ошибкой.
      */
@@ -407,12 +408,14 @@ public class PortfolioOverview {
      */
     private void setAssetName(Portfolio portfolio, int countAsset, TextField assetName) {
         try {
-            if (!(assetName.getText().isEmpty()) && !(assetName.getText().equals(""))) {
+            String stringName = assetName.getText();
+            if (!(assetName.getText().isEmpty()) && !(stringName.equals(""))) {
                 portfolio.setNameAsset(countAsset, new SimpleStringProperty(assetName.getText()));
             }
             else {
-                if (portfolio.getAssets().size() <= countAsset)
+                if (portfolio.getAssets().size() > countAsset) {
                     portfolio.getAssets().set(countAsset, null);
+                }
             }
         } catch (Exception e) {
 //            portfolio.addAsset(new SimpleStringProperty(assetName.getText()));
@@ -428,10 +431,9 @@ public class PortfolioOverview {
                     !(assetVal.getText().equals(""))) {
                 portfolio.setValueAsset(countAsset, new SimpleFloatProperty(Float.parseFloat(assetVal.getText())));
             }
-            else if (portfolio.getAssets().get(countAsset) == null &&
-                    !(assetVal.getText().isEmpty()) &&
-                    !(assetVal.getText().equals(""))) {
-                alertStage("Error(419)!", "No asset.",
+            else if (assetVal.getText().isEmpty() &&
+                    assetVal.getText().equals("")) {
+                alertStage("Error(436)!", "Invalid value entered.",
                         "Please select a portfolio and write the correct value in the asset.");
             }
         } catch (IndexOutOfBoundsException ignored){
@@ -451,10 +453,8 @@ public class PortfolioOverview {
                     !(assetVal.getText().equals(""))) {
                 portfolio.setPriceAsset(countAsset, new SimpleFloatProperty(Float.parseFloat(assetVal.getText())));
             }
-            else if (portfolio.getAssets().get(countAsset) == null &&
-                    !(assetVal.getText().isEmpty()) &&
-                    !(assetVal.getText().equals(""))) {
-                alertStage("Error!(439)", "No asset.",
+            else if (assetVal.getText().isEmpty() && assetVal.getText().equals("")) {
+                alertStage("Error!(457)", "No asset.",
                         "Please select a portfolio and write the correct value in the asset.");
             }
         } catch (IndexOutOfBoundsException ignored){
@@ -469,15 +469,13 @@ public class PortfolioOverview {
      */
     private void setAssetProportion(Portfolio portfolio, int countAsset, TextField assetVal) {
         try {
-            if (portfolio.getAssets().get(countAsset) != null &&
-                    !(assetVal.getText().isEmpty()) &&
-                    !(assetVal.getText().equals(""))) {
+            if (portfolio.getAssets().get(countAsset) == null){
+                portfolio.setProportion(countAsset, new SimpleFloatProperty(0f));
+            } else if (!(assetVal.getText().isEmpty()) && !(assetVal.getText().equals(""))) {
                 portfolio.setProportion(countAsset, new SimpleFloatProperty(Float.parseFloat(assetVal.getText())));
             }
-            else if (portfolio.getAssets().get(countAsset) == null &&
-                    !(assetVal.getText().isEmpty()) &&
-                    !(assetVal.getText().equals(""))) {
-                alertStage("Error(459)!", "No asset.",
+            else {
+                alertStage("Error(478)!", "No asset.",
                         "Please select a portfolio and write the correct value in the asset.");
             }
         } catch (IndexOutOfBoundsException ignored){

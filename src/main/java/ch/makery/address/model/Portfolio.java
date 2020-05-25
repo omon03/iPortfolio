@@ -53,7 +53,11 @@ public class Portfolio implements IPortfolio {
     }
     @Override
     public void setNameAsset(int countAsset, StringProperty newName) {
-        this.assets.get(countAsset).setName(newName);
+        try {
+            this.assets.get(countAsset).setName(newName);
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            this.assets.add(countAsset, new Asset(newName));
+        }
     }
     @Override
     public void setValueAsset(int countAsset, FloatProperty value) {
@@ -68,7 +72,7 @@ public class Portfolio implements IPortfolio {
         try {
             proportions.set(countAsset, proportion);
         } catch (IndexOutOfBoundsException e) {
-//            proportions.add(countAsset, proportion);
+            addProportion(countAsset, proportion);
         }
     }
     @Override
@@ -116,7 +120,8 @@ public class Portfolio implements IPortfolio {
     public FloatProperty getBalance() {
         FloatProperty balance = new SimpleFloatProperty(0f);
         for (Asset asset : assets) {
-            balance = new SimpleFloatProperty(asset.getBalance().getValue() + balance.getValue());
+            if (asset != null)
+                balance = new SimpleFloatProperty(asset.getBalance().getValue() + balance.getValue());
         }
         return balance;
     }
